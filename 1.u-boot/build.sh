@@ -1,13 +1,10 @@
 #!/bin/bash
 
-
-
-export PATH=$PATH:../0.gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin
-
-
-
 BASE=$(pwd)
+export PATH=$PATH:$(pwd)/../0.gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin
 OPTION="CROSS_COMPILE=aarch64-none-linux-gnu- O=$PWD/out"
+
+
 
 if [ $1 = "all" ]
 then

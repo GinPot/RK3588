@@ -16,12 +16,30 @@ uboot编译：
 	make remb-rk3588_defconfig
 	make CROSS_COMPILE=aarch64-none-linux-gnu-
 
+SD卡分区:(下面数字单位为扇区，每个扇区512字节)
+	sudo mkdosfs -I /dev/sdb													//格式化SD卡
+	sudo fdisk /dev/sdb
+		n
+		p
+		1
+		32768																	//跳过前面16M开始建第一个分区,前面空间用于存放u-boot-rockchip.bin
+		294912																	//第一分区128M
+		n
+		p
+		2
+		294913
+		回车(124735487)
+		w
+	sudo mkfs.vfat -I /dev/sdb1													//格式化第一分区
+	sudo mkfs.ext4 /dev/sdb2													//格式化第二分区
+
+
 烧录TF卡：
-	sudo dd if=./out/u-boot-rockchip.bin of=/dev/sdb seek=64
+	sudo dd if=./out/u-boot-rockchip.bin of=/dev/sdb seek=64					//跳过SD卡开头的64字节开始写bin文件
 
-
-
-
-
-
+uboot启动参数:
+	setenv bootdelay 1
+	setenv bootargs earlyprintk root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait panic=10
+	setenv bootcmd 'fatload mmc 0 0xecf02000 rk3588s-orangepi-5.dtb;fatload mmc 0 0x200000 Image;booti 0x200000 - 0xecf02000'
+	saveen
 

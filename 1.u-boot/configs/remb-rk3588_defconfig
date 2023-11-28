@@ -69,3 +69,5 @@ CONFIG_DEBUG_UART_SHIFT=2
 CONFIG_SYS_NS16550_MEM32=y
 CONFIG_SYSRESET=y
 CONFIG_ERRNO_STR=y
+#add saveen cmd to save uboot environment variable
+CONFIG_ENV_IS_IN_MMC=y
