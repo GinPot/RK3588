@@ -38,8 +38,29 @@ SD卡分区:(下面数字单位为扇区，每个扇区512字节)
 	sudo dd if=./out/u-boot-rockchip.bin of=/dev/sdb seek=64					//跳过SD卡开头的64字节开始写bin文件
 
 uboot启动参数:
-	setenv bootdelay 1
+	setenv bootdelay 0															//按住q进入uboot cmd
 	setenv bootargs earlyprintk root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait panic=10
 	setenv bootcmd 'fatload mmc 0 0xecf02000 rk3588s-orangepi-5.dtb;fatload mmc 0 0x200000 Image;booti 0x200000 - 0xecf02000'
 	saveen
 
+删除些无用的启动参数：
+	setenv board
+	setenv board_name
+	setenv boot_targets
+	setenv bootcmd
+	setenv fdtcontrolten
+	setenv ethact
+	setenv fdt_addr_r
+	setenv fdtcontroladdr
+	setenv fdtoverlay_addr_r
+	setenv kernel_addr_r
+	setenv kernel_comp_addr_r
+	setenv kernel_comp_size
+	setenv loadaddr
+	setenv partitions
+	setenv pxefile_addr_r
+	setenv ramdisk_addr_r
+	setenv script_offset_f
+	setenv script_size_f
+	setenv scriptaddr
+	setenv kev

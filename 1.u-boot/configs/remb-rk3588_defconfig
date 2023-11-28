@@ -71,3 +71,7 @@ CONFIG_SYSRESET=y
 CONFIG_ERRNO_STR=y
 #add saveen cmd to save uboot environment variable
 CONFIG_ENV_IS_IN_MMC=y
+
+CONFIG_AUTOBOOT_KEYED=y
+CONFIG_AUTOBOOT_PROMPT="Autoboot in %d seconds - press 'q' to stop...\n"
+CONFIG_AUTOBOOT_STOP_STR="q"
