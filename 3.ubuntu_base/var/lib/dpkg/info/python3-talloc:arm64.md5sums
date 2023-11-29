@@ -1,0 +1,4 @@
+1970633fcd679ca5b32cf6b9fb49a272  usr/lib/aarch64-linux-gnu/libpytalloc-util.cpython-310-aarch64-linux-gnu.so.2.3.3
+b6c1b2795431557596cfd5262b42f7f7  usr/lib/python3/dist-packages/talloc.cpython-310-aarch64-linux-gnu.so
+6671b1da9ee0695f5fd70f0a509527a1  usr/share/doc/python3-talloc/copyright
+8c7358e2687f4536e1592760f49b2d94  usr/share/lintian/overrides/python3-talloc

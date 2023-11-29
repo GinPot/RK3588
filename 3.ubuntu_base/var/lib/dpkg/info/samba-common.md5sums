@@ -1,0 +1,10 @@
+89c9245f1b6e16cd0ec567e4af78f327  usr/share/bug/samba-common/presubj
+7cfb1530346090c57fba9760f1af318d  usr/share/bug/samba-common/script
+2160b044fb8cb04b728cdf2ca9329f9d  usr/share/doc/samba-common/NEWS.Debian.gz
+85dee380d3cd4216838175226f23b488  usr/share/doc/samba-common/README.md.gz
+38fd91180bf854b04853c8886342441a  usr/share/doc/samba-common/WHATSNEW.txt.gz
+1b24b9a134214dc8a629c1b7d3d7a225  usr/share/doc/samba-common/changelog.Debian.gz
+47264992e60111962c4687cbb38c3dbc  usr/share/doc/samba-common/copyright
+25979b7571c1cf2e79ae9a0f9e676c8a  usr/share/doc/samba-common/examples/smb.conf.default
+3e7f39a38a8ecb5d6e8553153aa37ae5  usr/share/samba/panic-action
+ae3c484dde7ba4277b4a83b89938f32b  usr/share/samba/smb.conf

@@ -1,0 +1,102 @@
+ubuntu:
+	sudo apt-get install qemu-user-static
+	http://cdimage.ubuntu.com/ubuntu-base/releases/22.04.1/release/ubuntu-base-22.04.1-base-arm64.tar.gz
+
+	mkdir 3.ubuntu_base
+	sudo tar zxvf ubuntu-base-22.04.1-base-arm64.tar.gz -C 3.ubuntu_base/
+	sudo chown wuping:wuping -R 3.ubuntu_base/
+	cp /usr/bin/qemu-aarch64-static 3.ubuntu_base/usr/bin/
+	echo nameserver 8.8.8.8 > 3.ubuntu_base/etc/resolv.conf				//设置DNS域名服务器
+
+	vim 3.ubuntu_base/etc/apt/sources.list
+		# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+		deb http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy main restricted universe multiverse
+		# deb-src http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy main restricted universe multiverse
+		deb http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-updates main restricted universe multiverse
+		# deb-src http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-updates main restricted universe multiverse
+		deb http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-backports main restricted universe multiverse
+		# deb-src http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-backports main restricted universe multiverse
+
+		# deb http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-security main restricted universe multiverse
+		# # deb-src http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-security main restricted universe multiverse
+
+		deb http://ports.ubuntu.com/ubuntu-ports/ jammy-security main restricted universe multiverse
+		# deb-src http://ports.ubuntu.com/ubuntu-ports/ jammy-security main restricted universe multiverse
+
+		# 预发布软件源，不建议启用
+		# deb http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-proposed main restricted universe multiverse
+		# # deb-src http://mirrors.bfsu.edu.cn/ubuntu-ports/ jammy-proposed main restricted universe multiverse
+
+	chmod +x ./mount.sh
+	./mount.sh -m 3.ubuntu_base/			./mount.sh -u 3.ubuntu_base/
+	sudo chroot 3.ubuntu_base/
+
+	apt-get install vim gcc make samba smbclient openssh-server net-tools iputils-ping git unzip automake autoconf libtool p7zip-full
+	rm /var/cache/apt/archives/*.deb
+
+
+
+	1、设置root密码: passwd root	dianZI123				//ssh登录密码
+		1.1、设置ssh root登录:
+			vim /etc/ssh/sshd_config
+				PermitRootLogin yes
+				PasswordAuthentication yes
+			service ssh start
+
+	3、配置串口控制台
+		rm /etc/systemd/system/getty.target.wants/getty\@tty1.service
+		ln -s /lib/systemd/system/getty@.service  /etc/systemd/system/getty.target.wants/getty@ttyS2.service
+		 
+	4、配置ip、网关、子网掩码：vim /etc/rc.local
+		#echo peripheral > /sys/devices/platform/soc/5100000.usb/musb-hdrc.1.auto/mode
+		ifconfig usb0 192.168.137.11 netmask 255.255.255.0 up
+		route add default gw 192.168.137.1   (route add 10.10.88.203 dev eth0)
+		ifconfig eth0 192.168.1.8 netmask 255.255.255.0 up
+		route add default gw 192.168.1.1
+		route -n
+		若无法上网,请确认PC识别的网卡的网段和配置的网段是否一致
+
+	5、samba服务安装
+		chmod -R 777 /root
+		vim /etc/samba/smb.conf
+		在最后增加：
+		   [work]
+			   Path = /root								//共享目录
+			   valid users = root						//添加的用户名
+			   browseable = yes
+			   public = yes
+			   writable = yes
+		smbpasswd -a root	root						//增加用户，增加的用户是Ubuntu上已有的用户才能添加,samb登录密码
+		/etc/init.d/samba restart						//重启samba
+
+	6、挂载boot分区
+		mkdir /root/boot/
+		vim /etc/rc.local
+			mount /dev/mmcblk0p1 /root/boot/
+
+
+
+
+systemd-analyze blame 									//查看开机启动项耗时
+systemd-analyze time 									//查看总的开机时间
+systemd-analyze critical-chain 							//启动时间树状图
+systemd-analyze plot > ~/SystemdAnalyzePlot.svg 		//生成开机时间分析图，可以用图片或者浏览器打开看
+systemctl disable 启动项名称.service 					//禁用该启动项
+systemctl mask 启动项名称.service 						//强力禁用该启动项，确保其他项也不能唤起它
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

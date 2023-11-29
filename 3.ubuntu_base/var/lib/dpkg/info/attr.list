@@ -1,0 +1,16 @@
+/.
+/usr
+/usr/bin
+/usr/bin/attr
+/usr/bin/getfattr
+/usr/bin/setfattr
+/usr/share
+/usr/share/doc
+/usr/share/doc/attr
+/usr/share/doc/attr/copyright
+/usr/share/man
+/usr/share/man/man1
+/usr/share/man/man1/attr.1.gz
+/usr/share/man/man1/getfattr.1.gz
+/usr/share/man/man1/setfattr.1.gz
+/usr/share/doc/attr/changelog.Debian.gz

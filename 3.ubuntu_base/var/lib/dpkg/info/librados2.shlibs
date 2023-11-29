@@ -1,0 +1,2 @@
+libceph-common 2 librados2 (>= 17.2.6)
+librados 2 librados2 (>= 17.2.6)
