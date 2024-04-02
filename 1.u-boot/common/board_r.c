@@ -66,6 +66,7 @@
 #include <asm-generic/gpio.h>
 #include <efi_loader.h>
 #include <relocate.h>
+#include <dm/device-internal.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -566,6 +567,21 @@ static int run_main_loop(void)
 	return 0;
 }
 
+static int initr_rk_pmic(void)
+{
+	struct udevice *dev;
+
+	//printf("UCLASS_SPI,%s,LINE=%d\n",__func__,__LINE__);
+	//uclass_get_device(UCLASS_SPI, 0, &dev);
+	//device_probe(dev);
+
+	//printf("UCLASS_PMIC probe.\n");
+	uclass_get_device(UCLASS_PMIC, 0, &dev);
+	device_probe(dev);
+
+	return 0;
+}
+
 /*
  * Over time we hope to remove these functions with code fragments and
  * stub functions, and instead call the relevant function directly.
@@ -754,6 +770,7 @@ static init_fnc_t init_sequence_r[] = {
 #if defined(CFG_PRAM)
 	initr_mem,
 #endif
+	initr_rk_pmic,
 	run_main_loop,
 };
 

@@ -166,6 +166,9 @@ struct dm_pmic_ops {
 	int (*read)(struct udevice *dev, uint reg, uint8_t *buffer, int len);
 	int (*write)(struct udevice *dev, uint reg, const uint8_t *buffer,
 		     int len);
+	int (*suspend)(struct udevice *dev);
+	int (*resume)(struct udevice *dev);
+	int (*shutdown)(struct udevice *dev);
 };
 
 /**

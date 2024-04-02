@@ -39,8 +39,9 @@ SD卡分区:(下面数字单位为扇区，每个扇区512字节)
 
 uboot启动参数:
 	setenv bootdelay 0															//按住q进入uboot cmd
+	setenv bootargs earlyprintk root=/dev/mmcblk1p2 rootfstype=ext4 rw rootwait panic=10				// for sdk
 	setenv bootargs earlyprintk root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait panic=10
-	setenv bootcmd 'fatload mmc 0 0xecf02000 rk3588s-orangepi-5.dtb;fatload mmc 0 0x200000 Image;booti 0x200000 - 0xecf02000'
+	setenv bootcmd 'fatload mmc 0 0x10000000 rk3588s-orangepi-5.dtb;fatload mmc 0 0x200000 Image;booti 0x200000 - 0x10000000'
 	saveen
 
 删除些无用的启动参数：
