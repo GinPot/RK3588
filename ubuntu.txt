@@ -46,7 +46,8 @@ ubuntu:
 	3、配置串口控制台
 		rm /etc/systemd/system/getty.target.wants/getty\@tty1.service
 		ln -s /lib/systemd/system/getty@.service  /etc/systemd/system/getty.target.wants/getty@ttyS2.service
-		 
+		ln -s ./lib/systemd/system/getty@.service  ./etc/systemd/system/getty.target.wants/getty@ttyFIQ0.service		// for sdk
+
 	4、配置ip、网关、子网掩码：vim /etc/rc.local
 		#echo peripheral > /sys/devices/platform/soc/5100000.usb/musb-hdrc.1.auto/mode
 		ifconfig usb0 192.168.137.11 netmask 255.255.255.0 up
@@ -76,7 +77,9 @@ ubuntu:
 
 
 
+systemctl disable dev-ttyS2.device
 
+systemctl list-jobs										//查看当前活跃的任务
 systemd-analyze blame 									//查看开机启动项耗时
 systemd-analyze time 									//查看总的开机时间
 systemd-analyze critical-chain 							//启动时间树状图

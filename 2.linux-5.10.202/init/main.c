@@ -843,6 +843,18 @@ void __init __weak arch_call_rest_init(void)
 	rest_init();
 }
 
+static void save_prinfk_addr(void)
+{
+     long unsigned int save_prinfk_addr;
+
+     save_prinfk_addr = __phys_to_virt(0xc0000000);                                                                          //映射指定物理地址0x20000000，后续uboot通过读这个地址获取printk的物理地址, md.l 0x12000000 10
+
+     sprintf((void *)save_prinfk_addr, "0x%llx", __virt_to_phys(log_buf_addr_get()));        //将printk物理地址对应的字符串保存到0x12000000内存中
+     //writel(__virt_to_phys(log_buf_addr_get()), (void __iomem *)save_prinfk_addr);         //将printk物理地址到0x12000000内存中
+
+     pr_info("GinPot: __log_buf=0x%llx\n", __virt_to_phys(log_buf_addr_get()));
+}
+
 asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
 {
 	char *command_line;
@@ -865,7 +877,7 @@ asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
 	page_address_init();
 	pr_notice("%s", linux_banner);
 	early_security_init();
-	setup_arch(&command_line);
+	setup_arch(&command_line);save_prinfk_addr();
 	setup_boot_config(command_line);
 	setup_command_line(command_line);
 	setup_nr_cpu_ids();

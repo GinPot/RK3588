@@ -65,3 +65,12 @@ uboot启动参数:
 	setenv script_size_f
 	setenv scriptaddr
 	setenv kev
+
+
+uboot读printk物理地址:
+	md.l 0xc0000000 10
+	md.l 0x2051aa0 100
+
+uboot读写物理地址:
+	mw.l 0xe0000010 0x746f6f42
+	md.l 0xe0000010 10
