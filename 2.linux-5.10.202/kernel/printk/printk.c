@@ -2765,6 +2765,16 @@ void register_console(struct console *newcon)
 	unsigned long flags;
 	struct console *bcon = NULL;
 	int err;
+	static int earlycon_flag;
+
+	if(earlycon_flag){
+		if(strncmp(newcon->name, "ttyS", 4) != 0){
+			//pr_info("GinPot: %s,%s\n", __func__, newcon->name);
+			//dump_stack();
+			return;
+		}
+	}
+	earlycon_flag = 1;
 
 	for_each_console(bcon) {
 		if (WARN(bcon == newcon, "console '%s%d' already registered\n",
