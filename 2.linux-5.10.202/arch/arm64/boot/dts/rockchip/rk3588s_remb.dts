@@ -1,0 +1,35 @@
+/dts-v1/;							//定义了dts的版本,必须项
+
+#include "rk3588s_.dtsi"
+
+
+/ {
+	model = "Rockchip RK3588 Remb Board";
+	compatible = "rockchip,rk3588-remb", "rockchip,rk3588";
+
+
+
+	chosen: chosen {
+		bootargs = "rootfstype=ext4 rw rootwait";
+	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		cma {
+			compatible = "shared-dma-pool";
+			reusable;
+			reg = <0x0 0xa0000000 0x0 0x10000000>;
+			linux,cma-default;
+		};
+	};
+
+
+
+
+
+
+
+};

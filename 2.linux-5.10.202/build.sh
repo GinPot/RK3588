@@ -25,14 +25,14 @@ if [ $1 = "all" ]
 then
 	make -j6 Image dtbs $OPTION || exit
 	cp out/arch/arm64/boot/Image ./out/
-	#cp out/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dtb ./out/rk3588s-orangepi-5.dtb
+	cp out/arch/arm64/boot/dts/rockchip/rk3588s_remb.dtb out/rk3588s_remb.dtb
 	exit
 fi
 
 if [ $1 = "dtb" ]
 then
 	make dtbs $OPTION || exit
-	#cp out/arch/arm64/boot/dts/allwinner/sun50i-h616-remb.dtb ./out/
+	cp out/arch/arm64/boot/dts/rockchip/rk3588s_remb.dtb out/rk3588s_remb.dtb
 	exit
 fi
 
