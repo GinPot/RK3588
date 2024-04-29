@@ -7,7 +7,9 @@
 	model = "Rockchip RK3588 Remb Board";
 	compatible = "rockchip,rk3588-remb", "rockchip,rk3588";
 
-
+	aliases {
+		serial2 = &uart2;
+	};
 
 	chosen: chosen {
 		bootargs = "rootfstype=ext4 rw rootwait";
@@ -43,5 +45,9 @@
 
 
 
+};
 
+&uart2 {
+	pinctrl-0 = <&uart2m0_xfer>;
+	status = "okay";
 };
