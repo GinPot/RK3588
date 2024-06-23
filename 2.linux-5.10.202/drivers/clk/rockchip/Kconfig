@@ -125,3 +125,9 @@ config ROCKCHIP_PLL_RK3588
 	default y if CPU_RK3588
 	help
 	  Say y here to enable pll type is rk3588.
+
+config ROCKCHIP_CLK_LINK
+	tristate "Rockchip clock link support"
+	default CLK_RK3562 || CLK_RK3588
+	help
+	  Say y here to enable clock link for Rockchip.
