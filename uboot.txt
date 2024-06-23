@@ -39,8 +39,9 @@ SD卡分区:(下面数字单位为扇区，每个扇区512字节)
 
 uboot启动参数:
 	setenv bootdelay 0															//按住q进入uboot cmd
-	setenv bootargs earlyprintk root=/dev/mmcblk1p2 rootfstype=ext4 rw rootwait panic=10				// for sdk
-	setenv bootargs root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait earlycon=uart8250,mmio32,0xfeb50000 console=uart8250,1500000 
+	setenv bootargs earlyprintk root=/dev/mmcblk1p2 rootfstype=ext4 rw rootwait panic=10												// for sdk
+	setenv bootargs root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait earlycon=uart8250,mmio32,0xfeb50000 console=uart8250,1500000 		// 还未使能uart
+	setenv bootargs root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait console=ttyS2,1500000												//使能调试uart
 	setenv bootcmd 'fatload mmc 0 0x10000000 rk3588s_remb.dtb;fatload mmc 0 0x200000 Image;booti 0x200000 - 0x10000000'
 	saveen
 
